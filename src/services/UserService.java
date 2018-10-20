@@ -26,4 +26,21 @@ public class UserService {
 	public User getOneUser(String login) {
 		return userDAO.getOneUser(login);
 	}
+	public boolean deleteUser(String login) {
+		
+		return userDAO.deleteUser(login);
+	}
+
+	public boolean createUser(String login,String name, String password) {
+		return userDAO.createUser(login, name, password);
+	}
+
+	public boolean createUserTable(String tableName) {
+		return userDAO.createUserTable(tableName);
+	}
+
+	public boolean dropUserTable(String tableName) {
+		return userDAO.dropUserTable(tableName);
+	}
+	
 }
