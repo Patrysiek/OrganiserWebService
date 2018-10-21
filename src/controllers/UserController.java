@@ -62,9 +62,9 @@ public class UserController {
 	public String deleteUser(@RequestParam("login") String login) {
 
 		if (userService.deleteUser(login))
-			return "Udalo sie usunac uzytkownika";
+			return "User deleted successfully";
 		else
-			return "Wystapil blad";
+			return "Error occured !";
 	}
 
 	@RequestMapping(value = "/createuser", method = RequestMethod.POST)
@@ -73,21 +73,25 @@ public class UserController {
 			@RequestParam("password") String password) {
 
 		if (userService.createUser(login, name, password))
-			return "Udalo sie stworzyc uzytkownika";
+			return "User created successfully";
 		else
-			return "Wystapil blad";
+			return "Error occured !";
 	}
 
 	@RequestMapping(value = "/createusertable", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean createUserTable(@RequestParam("tablename") String tableName) {
-		return userService.createUserTable(tableName);
+	public String createUserTable(@RequestParam("tablename") String tableName) {
+		
+		if(!userService.createUserTable(tableName)) return "Table created successfully";
+		else return "Error occured !";
 	}
 
 	@RequestMapping(value = "/dropusertable", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean dropUserTable(@RequestParam("tablename") String tableName) {
-		return userService.dropUserTable(tableName);
+	public String dropUserTable(@RequestParam("tablename") String tableName) {
+
+		if(!userService.dropUserTable(tableName)) return "Table dropped successfully";
+		else return "Error occured !";
 	}
 
 }
