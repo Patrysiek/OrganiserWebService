@@ -38,7 +38,7 @@ public class UserDAO {
 	}
 	
 	public boolean createUser(String login,String name,String password) {
-		String sql = "INSERT INTO users(login,name,password) VALUES ?,?,?";
+		String sql = "INSERT INTO users(login,name,password) VALUES( ?,?,?)";
 		return jdbcTemplate.update(sql, login,name,password) == 1;
 	}
 	

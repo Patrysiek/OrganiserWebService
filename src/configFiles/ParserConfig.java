@@ -9,13 +9,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ParserConfig {
 
-	
-	@Bean
-	public StringWriter getWriter() {
-		return new StringWriter();
-	}
 	@Bean
 	public ObjectMapper getMapper() {
 		return new ObjectMapper();
+	}
+	@Bean
+	public StringWriter getWriter() {
+		return new StringWriter();
 	}
 }
