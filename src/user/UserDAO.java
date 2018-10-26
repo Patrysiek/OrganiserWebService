@@ -5,6 +5,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -57,5 +58,16 @@ public class UserDAO {
 		String sql = "drop table "+tableName;
 		
 		return jdbcTemplate.update(sql)==1;
+	}
+
+	public User login(String login, String password) {
+		String sql = "SELECT * FROM users WHERE login = ? AND password = ?";
+		User user = null;
+		try {
+		user = (User) jdbcTemplate.queryForObject(sql, new UserRowMapper(),login,password);
+		}catch(EmptyResultDataAccessException ex) {
+			return null;
+		}
+		return user;
 	}
 }

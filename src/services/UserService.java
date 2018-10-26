@@ -42,5 +42,10 @@ public class UserService {
 	public boolean dropUserTable(String tableName) {
 		return userDAO.dropUserTable(tableName);
 	}
+
+	public User login(String login, String password) {
+		// TODO Auto-generated method stub
+		return userDAO.login(login,password);
+	}
 	
 }

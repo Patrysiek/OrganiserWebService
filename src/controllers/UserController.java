@@ -56,6 +56,17 @@ public class UserController {
 		mapper.writeValue(writer, user);
 		return writer.toString();
 	}
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@ResponseBody
+	public String login(@RequestParam("login") String login,@RequestParam("password") String password  )
+			throws JsonGenerationException, JsonMappingException, IOException {
+		
+		User user = userService.login(login,password);
+		writer = new ParserConfig().getWriter();
+		
+		mapper.writeValue(writer, user);
+		return writer.toString();
+	}
 
 	@RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
 	@ResponseBody

@@ -9,7 +9,7 @@
 	<configs>
 		<config>WebContent/WEB-INF/servletOrganiser-servlet.xml</config>
 		<config>src/configFiles/userDao-config.xml</config>
-		<config>src/configFiles/userService-config.xml</config>
+		<config>src/configFiles/services-config.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
