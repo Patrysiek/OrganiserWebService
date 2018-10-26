@@ -9,8 +9,8 @@ public class TaskRowMapper implements RowMapper<Task>{
 
 	@Override
 	public Task mapRow(ResultSet rs, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new Task(rs.getInt("ID"), rs.getDate("date"), rs.getString("description"));
 	}
 
 }
