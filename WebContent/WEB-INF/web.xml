@@ -34,7 +34,8 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			  classpath:configFiles/userDao-config.xml
-			  classpath:configFiles/userService-config.xml
+			  classpath:configFiles/taskDao-config.xml
+			  classpath:configFiles/services-config.xml
   		</param-value>
 	</context-param>
 </web-app>
