@@ -46,9 +46,9 @@ public class TaskController {
 		return stringWriter.toString();
 	}
 	
-	@RequestMapping(value="/alltasksfromday",method=RequestMethod.GET)
+	@RequestMapping(value="/alltasksfromday",method=RequestMethod.POST)
 	@ResponseBody
-	public String getAllTasks(@RequestParam("tablename")String tableName,@RequestParam("date")String date) throws JsonGenerationException, JsonMappingException, IOException{
+	public String getAllTasksFromDay(@RequestParam("tablename")String tableName,@RequestParam("date")String date) throws JsonGenerationException, JsonMappingException, IOException{
 		
 		stringWriter = new ParserConfig().getWriter();
 		objectMapper.writeValue(stringWriter,taskService.getAllTaskFromDay(tableName, date));
@@ -64,7 +64,7 @@ public class TaskController {
 		return stringWriter.toString();
 	}
 	
-	@RequestMapping(value="/createtasktable",method=RequestMethod.GET)
+	@RequestMapping(value="/createtasktable",method=RequestMethod.POST)
 	@ResponseBody
 	public void createTaskTable(@RequestParam("tablename")String tableName){
 		taskService.createTaskTable(tableName);
@@ -74,7 +74,7 @@ public class TaskController {
 	public void dropTaskTable(@RequestParam("tablename")String tableName){
 		taskService.dropTable(tableName);
 	}
-	@RequestMapping(value="/inserttask",method=RequestMethod.GET)
+	@RequestMapping(value="/inserttask",method=RequestMethod.POST)
 	@ResponseBody
 	public void insertTask(@RequestParam("tablename")String tableName,@RequestParam("date")String date,@RequestParam("description")String description){
 		taskService.insertTask(tableName, date, description);
