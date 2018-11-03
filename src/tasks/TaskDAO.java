@@ -62,9 +62,9 @@ public class TaskDAO {
 		return null;
 	}
 	
-	public void deleteTask(String tableName,int ID) {
+	public void deleteTask(String tableName,String IDs) {
 		try {
-			jdbcTemplate.update("DELETE FROM " + tableName+" WHERE ID = "+ID);
+			jdbcTemplate.update("DELETE FROM " + tableName+" WHERE ID IN("+IDs+")");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

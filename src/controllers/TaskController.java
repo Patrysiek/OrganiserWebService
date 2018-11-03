@@ -55,7 +55,7 @@ public class TaskController {
 		
 		return stringWriter.toString();
 	}
-	@RequestMapping(value="/onetask",method=RequestMethod.GET)
+	@RequestMapping(value="/onetask",method=RequestMethod.POST)
 	@ResponseBody
 	public String getTask(@RequestParam("tablename")String tableName,@RequestParam("ID")int ID) throws JsonGenerationException, JsonMappingException, IOException{
 		stringWriter = new ParserConfig().getWriter();
@@ -69,7 +69,7 @@ public class TaskController {
 	public void createTaskTable(@RequestParam("tablename")String tableName){
 		taskService.createTaskTable(tableName);
 	}
-	@RequestMapping(value="/droptasktable",method=RequestMethod.GET)
+	@RequestMapping(value="/droptasktable",method=RequestMethod.POST)
 	@ResponseBody
 	public void dropTaskTable(@RequestParam("tablename")String tableName){
 		taskService.dropTable(tableName);
@@ -79,10 +79,10 @@ public class TaskController {
 	public void insertTask(@RequestParam("tablename")String tableName,@RequestParam("date")String date,@RequestParam("description")String description){
 		taskService.insertTask(tableName, date, description);
 	}
-	@RequestMapping(value="/deletetask",method=RequestMethod.GET)
+	@RequestMapping(value="/deletetask",method=RequestMethod.POST)
 	@ResponseBody
-	public void deleteTask(@RequestParam("tablename")String tableName,@RequestParam("ID")int ID){
-		taskService.deleteTask(tableName, ID);
+	public void deleteTask(@RequestParam("tablename")String tableName,@RequestParam("ID")String IDs){
+		taskService.deleteTask(tableName, IDs);
 	}
 	
 

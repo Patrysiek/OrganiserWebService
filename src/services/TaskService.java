@@ -38,8 +38,8 @@ public class TaskService {
 	public void insertTask(String tableName,String date,String description) {
 		taskDAO.insertTask(tableName, date, description);
 	}
-	public void deleteTask(String tableName, int ID) {
-		taskDAO.deleteTask(tableName, ID);
+	public void deleteTask(String tableName, String IDs) {
+		taskDAO.deleteTask(tableName, IDs);
 	}
 	public void dropTable(String tableName) {
 		taskDAO.dropTable(tableName);
