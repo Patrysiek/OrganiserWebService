@@ -62,10 +62,16 @@ public class UserController {
 			throws JsonGenerationException, JsonMappingException, IOException {
 		
 		User user = userService.login(login,password);
-		writer = new ParserConfig().getWriter();
 		
-		mapper.writeValue(writer, user);
-		return writer.toString();
+		if(user!=null) {
+			writer = new ParserConfig().getWriter();
+			
+			mapper.writeValue(writer, user);
+			return writer.toString();
+		}
+		else
+			return null;
+		
 	}
 
 	@RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
@@ -84,9 +90,9 @@ public class UserController {
 			@RequestParam("password") String password) {
 
 		if (userService.createUser(login, name, password))
-			return "User created successfully";
+			return "1";
 		else
-			return "Error occured !";
+			return "0";
 	}
 
 	@RequestMapping(value = "/createusertable", method = RequestMethod.POST)

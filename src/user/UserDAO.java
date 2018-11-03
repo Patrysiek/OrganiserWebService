@@ -1,5 +1,6 @@
 package user;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.NestedServletException;
 
 @Component("userDAO")
 public class UserDAO {
@@ -39,8 +41,16 @@ public class UserDAO {
 	}
 	
 	public boolean createUser(String login,String name,String password) {
-		String sql = "INSERT INTO users(login,name,password) VALUES( ?,?,?)";
-		return jdbcTemplate.update(sql, login,name,password) == 1;
+		try {
+			String sql = "INSERT INTO users(login,name,password) VALUES( ?,?,?)";
+			jdbcTemplate.update(sql, login,name,password);
+			
+		}catch(Exception ex) {
+			return false;
+		}
+		return true;
+		
+		
 	}
 	
 	public boolean deleteUser(String login) {
@@ -49,9 +59,14 @@ public class UserDAO {
 	}
 
 	public boolean createUserTable(String tableName) {
-		String sql = "create table "+tableName+"(ID int auto_increment not null primary key,opis varchar(200),data date)";
+		try {
+			String sql = "create table "+tableName+"(ID int auto_increment not null primary key,opis varchar(200),data date)";
+			jdbcTemplate.update(sql);
+		}catch(Exception e) {
+			return false;
+		}
 		
-		return jdbcTemplate.update(sql)==1;
+		return true;
 	}
 
 	public boolean dropUserTable(String tableName) {
