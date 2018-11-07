@@ -35,8 +35,8 @@ public class TaskService {
 	public void createTaskTable(String tableName) {
 		taskDAO.createTaskTable(tableName);
 	}
-	public void insertTask(String tableName,String date,String description) {
-		taskDAO.insertTask(tableName, date, description);
+	public void insertTask(String tableName,String date,String description,String status) {
+		taskDAO.insertTask(tableName, date, description,status);
 	}
 	public void deleteTask(String tableName, String IDs) {
 		taskDAO.deleteTask(tableName, IDs);

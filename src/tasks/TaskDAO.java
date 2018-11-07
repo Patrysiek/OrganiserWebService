@@ -46,7 +46,7 @@ public class TaskDAO {
 	public void createTaskTable(String tableName) {
 		
 		
-		jdbcTemplate.update("CREATE TABLE IF NOT EXISTS "+tableName+"(ID int primary key NOT NULL  auto_increment,Date date,description varchar(40))");
+		jdbcTemplate.update("CREATE TABLE IF NOT EXISTS "+tableName+"(ID int primary key NOT NULL  auto_increment,Date date,description varchar(40),status varchar(10))");
 	}
 	
 	public void dropTable(String tableName) {
@@ -69,11 +69,11 @@ public class TaskDAO {
 			ex.printStackTrace();
 		}
 	}
-	public void insertTask(String tableName,String sDate,String description) {
+	public void insertTask(String tableName,String sDate,String description,String status) {
 		try {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			LocalDate  date = LocalDate.parse(sDate,formatter);
-			jdbcTemplate.update("INSERT INTO " + tableName + "(date,description)VALUES(?,?)",date,description);
+			jdbcTemplate.update("INSERT INTO " + tableName + "(date,description,status)VALUES(?,?,?)",date,description,status);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

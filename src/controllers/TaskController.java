@@ -76,8 +76,8 @@ public class TaskController {
 	}
 	@RequestMapping(value="/inserttask",method=RequestMethod.POST)
 	@ResponseBody
-	public void insertTask(@RequestParam("tablename")String tableName,@RequestParam("date")String date,@RequestParam("description")String description){
-		taskService.insertTask(tableName, date, description);
+	public void insertTask(@RequestParam("tablename")String tableName,@RequestParam("date")String date,@RequestParam("description")String description,@RequestParam("status")String status){
+		taskService.insertTask(tableName, date, description,status);
 	}
 	@RequestMapping(value="/deletetask",method=RequestMethod.POST)
 	@ResponseBody
