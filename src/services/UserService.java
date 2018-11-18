@@ -44,8 +44,16 @@ public class UserService {
 	}
 
 	public User login(String login, String password) {
-		// TODO Auto-generated method stub
 		return userDAO.login(login,password);
+	}
+	public boolean createUserSharedTablesTable(String tableName) {
+		return userDAO.createUserSharedTablesTable(tableName);
+	}
+	public boolean deleteFromUserSharedTablesTable(String tableName,String hiddenName) {
+		return userDAO.deleteFromUserSharedTablesTable(tableName,hiddenName);
+	}
+	public boolean insertIntoUserSharedTablesTable(String tableName,String hiddenName,String password) {
+		return userDAO.insertIntoUserSharedTablesTable(tableName,hiddenName,password);
 	}
 	
 }

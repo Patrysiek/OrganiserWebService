@@ -35,6 +35,7 @@
 		<param-value>
 			  classpath:configFiles/userDao-config.xml
 			  classpath:configFiles/taskDao-config.xml
+			  classpath:configFiles/tableDao-config.xml
 			  classpath:configFiles/services-config.xml
   		</param-value>
 	</context-param>

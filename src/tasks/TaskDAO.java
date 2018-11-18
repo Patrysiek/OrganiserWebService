@@ -80,4 +80,13 @@ public class TaskDAO {
 
 	}
 
+	public void updateTask(String tableName, String ID, String status) {
+		try {
+			jdbcTemplate.update("UPDATE "+tableName+" SET status = '"+status+"' WHERE ID = "+ID);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+	}
+
 }

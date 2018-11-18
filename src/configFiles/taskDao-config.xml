@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 		
 	<context:annotation-config></context:annotation-config>
-	<context:component-scan base-package="user"></context:component-scan>
+	<context:component-scan base-package="tasks"></context:component-scan>
 	
 	<jee:jndi-lookup jndi-name="jdbc/OrganiserDatabase"
 		id="dataSource" expected-type="javax.sql.DataSource"></jee:jndi-lookup>

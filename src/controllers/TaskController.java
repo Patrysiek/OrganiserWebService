@@ -84,6 +84,10 @@ public class TaskController {
 	public void deleteTask(@RequestParam("tablename")String tableName,@RequestParam("ID")String IDs){
 		taskService.deleteTask(tableName, IDs);
 	}
-	
+	@RequestMapping(value="/updatetask",method=RequestMethod.POST)
+	@ResponseBody
+	public void updateTask(@RequestParam("tablename")String tableName,@RequestParam("ID")String ID,@RequestParam("status")String status){
+		taskService.updateTask(tableName, ID,status);
+	}
 
 }

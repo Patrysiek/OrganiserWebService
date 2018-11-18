@@ -44,5 +44,9 @@ public class TaskService {
 	public void dropTable(String tableName) {
 		taskDAO.dropTable(tableName);
 	}
+
+	public void updateTask(String tableName, String ID, String status) {
+			taskDAO.updateTask(tableName,ID,status);
+	}
 	
 }

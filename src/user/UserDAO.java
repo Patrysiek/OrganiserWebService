@@ -1,6 +1,5 @@
 package user;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.web.util.NestedServletException;
 
 @Component("userDAO")
 public class UserDAO {
@@ -49,8 +47,6 @@ public class UserDAO {
 			return false;
 		}
 		return true;
-		
-		
 	}
 	
 	public boolean deleteUser(String login) {
@@ -68,7 +64,36 @@ public class UserDAO {
 		
 		return true;
 	}
-
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public boolean createUserSharedTablesTable(String tableName) {
+		try {
+			String sql = "CREATE TABLE "+tableName+" (ID int(11) NOT NULL AUTO_INCREMENT,name varchar(45) NOT NULL,password varchar(45) NOT NULL,hiddenName varchar(45) NOT NULL,PRIMARY KEY (ID),UNIQUE KEY ID_UNIQUE (ID),UNIQUE KEY hiddenName_UNIQUE (hiddenName))";
+			jdbcTemplate.update(sql);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	public boolean deleteFromUserSharedTablesTable(String tableName,String hiddenName) {
+		try {
+			String sql = "DELETE FROM "+tableName+"WHERE hiddenName = "+hiddenName;
+			jdbcTemplate.update(sql);
+		}catch(Exception e) {
+			return false;
+		}
+		return true;
+	}
+	public boolean insertIntoUserSharedTablesTable(String tableName,String hiddenName,String password) {
+		try {
+			String sql = "insert into "+tableName+"(name,password,hiddenName)VALUES(?,?,?)";
+			jdbcTemplate.update(sql,tableName,hiddenName,password);
+		}catch(Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
 	public boolean dropUserTable(String tableName) {
 		String sql = "drop table "+tableName;
 		
