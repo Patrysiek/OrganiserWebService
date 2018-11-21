@@ -119,8 +119,8 @@ public class UserController {
 	}
 	@RequestMapping(value = "/insertIntoUserSharedTablesTable", method = RequestMethod.POST)
 	@ResponseBody
-	public String insertIntoUserSharedTablesTable(@RequestParam("tablename") String tableName,@RequestParam("hiddenname")String hiddenName,@RequestParam("password")String password) {
-		if(userService.insertIntoUserSharedTablesTable(tableName,hiddenName,password)) return "Object added successfully";
+	public String insertIntoUserSharedTablesTable(@RequestParam("tablename") String tableName,@RequestParam("name") String name,@RequestParam("hiddenname")String hiddenName,@RequestParam("password")String password,@RequestParam("firstOwner")String firstOwner) {
+		if(userService.insertIntoUserSharedTablesTable(tableName,name,hiddenName,password,firstOwner)) return "Object added successfully";
 		else return "Error occured !";
 	}
 	@RequestMapping(value = "/deleteFromUserSharedTablesTable", method = RequestMethod.POST)

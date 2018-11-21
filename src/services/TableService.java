@@ -19,19 +19,19 @@ public class TableService {
 	}
 
 	public List<Table> getAllTablesFromSharedTables() {
-		return tableDAO.getAllTablesFromSharedTables();
+		return tableDAO.getAllTablesFromAllSharedTables();
 	}
 
 	public List<Table> getUserAllSharedTables(String tablename) {
 		return tableDAO.getUserAllSharedTables(tablename);
 	}
 	public List<Table> getParticularSharedTables(String hiddenName,String password) {
-		return tableDAO.getParticularTablesFromSharedTables(hiddenName,password);
+		return tableDAO.getParticularTablesFromAllSharedTables(hiddenName,password);
 	}
 	
 
-	public String addNewTableToSharedTables(String name, String password) {
-		return tableDAO.addNewTableToSharedTables(name, password);
+	public String addNewTableToAllSharedTablesAndToFirstOwnerTable(String firstOwnerTableName,String name, String password,String firstOwner) {
+		return tableDAO.addNewTableToAllSharedTablesAndToFirstOwnerTable(firstOwnerTableName,name, password,firstOwner);
 	}
 	public boolean deleteSharedTable(String hiddenName) {
 		return tableDAO.deleteSharedTable(hiddenName);

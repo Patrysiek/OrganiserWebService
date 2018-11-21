@@ -36,7 +36,7 @@ public class TableController {
 	}
 	
 	
-	@RequestMapping(value="/AllTablesFromSharedTable",method=RequestMethod.GET)
+	@RequestMapping(value="/AllTablesFromSharedTable",method=RequestMethod.POST)
 	@ResponseBody
 	public String getAllTablesFromSharedTables() throws JsonGenerationException, JsonMappingException, IOException{
 		
@@ -71,11 +71,10 @@ public class TableController {
 		return tableService.deleteSharedTable(hiddenName);
 	}
 	
-	@RequestMapping(value="/newTableSharedTables",method=RequestMethod.POST)
+	@RequestMapping(value="/newTableToSharedTables",method=RequestMethod.POST)
 	@ResponseBody
-	public void newTableSharedTables(@RequestParam("tablename")String tableName,@RequestParam("password")String password){
-		tableService.addNewTableToSharedTables(tableName, password);
+	public void addNewTableToAllSharedTablesAndToFirstOwnerTable( @RequestParam("tablename")String tableName,@RequestParam("password")String password,@RequestParam("firstOwner")String firstOwner, @RequestParam("firstOwnerTablename")String firstOwnerTableName){
+		tableService.addNewTableToAllSharedTablesAndToFirstOwnerTable(firstOwnerTableName,tableName, password,firstOwner);
 	}
 	
-
 }

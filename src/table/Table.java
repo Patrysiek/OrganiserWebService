@@ -6,14 +6,14 @@ public class Table {
 	private String name;
 	private String password;
 	private String hiddenName;
+	private String firstOwner;
 	
-	
-	
-	public Table(int iD, String name, String password,String hiddenName) {
+	public Table(int iD, String name, String password,String hiddenName,String firstOwner) {
 		ID = iD;
 		this.name = name;
 		this.password = password;
 		this.hiddenName = hiddenName;
+		this.firstOwner = firstOwner;
 	}
 	
 	public int getID() {
@@ -40,6 +40,11 @@ public class Table {
 	public void setHiddenName(String hiddenName) {
 		this.hiddenName = hiddenName;
 	}
-	
+	public String getFirstOwner() {
+		return firstOwner;
+	}
+	public void setFirstOwner(String firstOwner) {
+		this.firstOwner = firstOwner;
+	}
 	
 }

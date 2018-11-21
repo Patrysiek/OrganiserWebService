@@ -52,8 +52,8 @@ public class UserService {
 	public boolean deleteFromUserSharedTablesTable(String tableName,String hiddenName) {
 		return userDAO.deleteFromUserSharedTablesTable(tableName,hiddenName);
 	}
-	public boolean insertIntoUserSharedTablesTable(String tableName,String hiddenName,String password) {
-		return userDAO.insertIntoUserSharedTablesTable(tableName,hiddenName,password);
+	public boolean insertIntoUserSharedTablesTable(String tableName,String name,String hiddenName,String password,String firstOwner) {
+		return userDAO.insertIntoUserSharedTablesTable(tableName,name,hiddenName,password,firstOwner);
 	}
 	
 }

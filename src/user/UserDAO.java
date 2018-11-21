@@ -37,7 +37,16 @@ public class UserDAO {
 		}
 		return null;
 	}
-	
+	public User login(String login, String password) {
+		String sql = "SELECT * FROM users WHERE login = ? AND password = ?";
+		User user = null;
+		try {
+		user = (User) jdbcTemplate.queryForObject(sql, new UserRowMapper(),login,password);
+		}catch(EmptyResultDataAccessException ex) {
+			return null;
+		}
+		return user;
+	}
 	public boolean createUser(String login,String name,String password) {
 		try {
 			String sql = "INSERT INTO users(login,name,password) VALUES( ?,?,?)";
@@ -67,7 +76,7 @@ public class UserDAO {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public boolean createUserSharedTablesTable(String tableName) {
 		try {
-			String sql = "CREATE TABLE "+tableName+" (ID int(11) NOT NULL AUTO_INCREMENT,name varchar(45) NOT NULL,password varchar(45) NOT NULL,hiddenName varchar(45) NOT NULL,PRIMARY KEY (ID),UNIQUE KEY ID_UNIQUE (ID),UNIQUE KEY hiddenName_UNIQUE (hiddenName))";
+			String sql = "CREATE TABLE IF NOT EXISTS "+tableName+" (ID int(11) NOT NULL AUTO_INCREMENT,name varchar(45) NOT NULL,password varchar(45) NOT NULL,hiddenName varchar(45) NOT NULL,firstOwner varchar(45) NOT NULL,PRIMARY KEY (ID),UNIQUE KEY ID_UNIQUE (ID),UNIQUE KEY hiddenName_UNIQUE (hiddenName))";
 			jdbcTemplate.update(sql);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -84,10 +93,10 @@ public class UserDAO {
 		}
 		return true;
 	}
-	public boolean insertIntoUserSharedTablesTable(String tableName,String hiddenName,String password) {
+	public boolean insertIntoUserSharedTablesTable(String tableName,String name,String hiddenName,String password,String firstOwner) {
 		try {
-			String sql = "insert into "+tableName+"(name,password,hiddenName)VALUES(?,?,?)";
-			jdbcTemplate.update(sql,tableName,hiddenName,password);
+			String sql = "insert into "+tableName+"(name,password,hiddenName,firstOwner)VALUES(?,?,?,?)";
+			jdbcTemplate.update(sql,name,password,hiddenName,firstOwner);
 		}catch(Exception e) {
 			return false;
 		}
@@ -98,16 +107,5 @@ public class UserDAO {
 		String sql = "drop table "+tableName;
 		
 		return jdbcTemplate.update(sql)==1;
-	}
-
-	public User login(String login, String password) {
-		String sql = "SELECT * FROM users WHERE login = ? AND password = ?";
-		User user = null;
-		try {
-		user = (User) jdbcTemplate.queryForObject(sql, new UserRowMapper(),login,password);
-		}catch(EmptyResultDataAccessException ex) {
-			return null;
-		}
-		return user;
 	}
 }
