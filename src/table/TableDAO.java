@@ -72,7 +72,7 @@ public class TableDAO {
 		return jdbcTemplate.update(sql) == 1;
 	}
 
-	public boolean deleteSharedTable(String hiddenName) {
+	public boolean dropSharedTable(String hiddenName) {
 		String sql = "drop table " + hiddenName;
 		return jdbcTemplate.update(sql) == 1;
 	}
@@ -81,5 +81,51 @@ public class TableDAO {
 		String sql = "DELETE FROM all_shared_tables WHERE hiddenName = " + hiddenName;
 		return jdbcTemplate.update(sql) == 1;
 	}
+	public boolean createUserTable(String tableName) {
+		try {
+			String sql = "create table "+tableName+"(ID int auto_increment not null primary key,opis varchar(200),data date)";
+			jdbcTemplate.update(sql);
+		}catch(Exception e) {
+			return false;
+		}
+		
+		return true;
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public boolean createUserSharedTablesTable(String tableName) {
+		try {
+			String sql = "CREATE TABLE IF NOT EXISTS "+tableName+" (ID int(11) NOT NULL AUTO_INCREMENT,name varchar(45) NOT NULL,password varchar(45) NOT NULL,hiddenName varchar(45) NOT NULL,firstOwner varchar(45) NOT NULL,PRIMARY KEY (ID),UNIQUE KEY ID_UNIQUE (ID),UNIQUE KEY hiddenName_UNIQUE (hiddenName))";
+			jdbcTemplate.update(sql);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	public boolean deleteFromUserSharedTablesTable(String tableName,String hiddenName) {
+		try {
+			String sql = "DELETE FROM "+tableName+"WHERE hiddenName = "+hiddenName;
+			jdbcTemplate.update(sql);
+		}catch(Exception e) {
+			return false;
+		}
+		return true;
+	}
+	public boolean insertIntoUserSharedTablesTable(String tableName,String name,String hiddenName,String password,String firstOwner) {
+		try {
+			String sql = "insert into "+tableName+"(name,password,hiddenName,firstOwner)VALUES(?,?,?,?)";
+			jdbcTemplate.update(sql,name,password,hiddenName,firstOwner);
+		}catch(Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean dropUserTable(String tableName) {
+		String sql = "drop table "+tableName;
+		
+		return jdbcTemplate.update(sql)==1;
+	}
+	
 
 }

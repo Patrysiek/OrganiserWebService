@@ -35,25 +35,9 @@ public class UserService {
 		return userDAO.createUser(login, name, password);
 	}
 
-	public boolean createUserTable(String tableName) {
-		return userDAO.createUserTable(tableName);
-	}
-
-	public boolean dropUserTable(String tableName) {
-		return userDAO.dropUserTable(tableName);
-	}
-
 	public User login(String login, String password) {
 		return userDAO.login(login,password);
 	}
-	public boolean createUserSharedTablesTable(String tableName) {
-		return userDAO.createUserSharedTablesTable(tableName);
-	}
-	public boolean deleteFromUserSharedTablesTable(String tableName,String hiddenName) {
-		return userDAO.deleteFromUserSharedTablesTable(tableName,hiddenName);
-	}
-	public boolean insertIntoUserSharedTablesTable(String tableName,String name,String hiddenName,String password,String firstOwner) {
-		return userDAO.insertIntoUserSharedTablesTable(tableName,name,hiddenName,password,firstOwner);
-	}
+
 	
 }

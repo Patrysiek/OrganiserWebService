@@ -33,8 +33,28 @@ public class TableService {
 	public String addNewTableToAllSharedTablesAndToFirstOwnerTable(String firstOwnerTableName,String name, String password,String firstOwner) {
 		return tableDAO.addNewTableToAllSharedTablesAndToFirstOwnerTable(firstOwnerTableName,name, password,firstOwner);
 	}
-	public boolean deleteSharedTable(String hiddenName) {
-		return tableDAO.deleteSharedTable(hiddenName);
+	public boolean dropSharedTable(String hiddenName) {
+		return tableDAO.dropSharedTable(hiddenName);
+	}
+	public boolean createUserTable(String tableName) {
+		return tableDAO.createUserTable(tableName);
+	}
+
+	public boolean tableDAO(String tableName) {
+		return tableDAO.dropUserTable(tableName);
+	}
+	public boolean createUserSharedTablesTable(String tableName) {
+		return tableDAO.createUserSharedTablesTable(tableName);
+	}
+	public boolean deleteFromUserSharedTablesTable(String tableName,String hiddenName) {
+		return tableDAO.deleteFromUserSharedTablesTable(tableName,hiddenName);
+	}
+	public boolean insertIntoUserSharedTablesTable(String tableName,String name,String hiddenName,String password,String firstOwner) {
+		return tableDAO.insertIntoUserSharedTablesTable(tableName,name,hiddenName,password,firstOwner);
+	}
+
+	public boolean dropUserTable(String tableName) {
+		return tableDAO.dropUserTable(tableName);
 	}
 
 }

@@ -68,13 +68,47 @@ public class TableController {
 	@ResponseBody
 	public boolean getTask(@RequestParam("tablename")String hiddenName) throws JsonGenerationException, JsonMappingException, IOException{
 		
-		return tableService.deleteSharedTable(hiddenName);
+		return tableService.dropSharedTable(hiddenName);
 	}
 	
 	@RequestMapping(value="/newTableToSharedTables",method=RequestMethod.POST)
 	@ResponseBody
 	public void addNewTableToAllSharedTablesAndToFirstOwnerTable( @RequestParam("tablename")String tableName,@RequestParam("password")String password,@RequestParam("firstOwner")String firstOwner, @RequestParam("firstOwnerTablename")String firstOwnerTableName){
 		tableService.addNewTableToAllSharedTablesAndToFirstOwnerTable(firstOwnerTableName,tableName, password,firstOwner);
+	}
+	@RequestMapping(value = "/createusertable", method = RequestMethod.POST)
+	@ResponseBody
+	public String createUserTable(@RequestParam("tablename") String tableName) {
+		
+		if(!tableService.createUserTable(tableName)) return "Table created successfully";
+		else return "Error occured !";
+	}
+
+	@RequestMapping(value = "/dropusertable", method = RequestMethod.POST)
+	@ResponseBody
+	public String dropUserTable(@RequestParam("tablename") String tableName) {
+
+		if(!tableService.dropUserTable(tableName)) return "Table dropped successfully";
+		else return "Error occured !";
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	@RequestMapping(value = "/createUserSharedTablesTable", method = RequestMethod.POST)
+	@ResponseBody
+	public String createUserSharedTablesTable(@RequestParam("tablename") String tableName) {
+		if(tableService.createUserSharedTablesTable(tableName)) return "Table created successfully";
+		else return "Error occured !";
+	}
+	@RequestMapping(value = "/insertIntoUserSharedTablesTable", method = RequestMethod.POST)
+	@ResponseBody
+	public String insertIntoUserSharedTablesTable(@RequestParam("tablename") String tableName,@RequestParam("name") String name,@RequestParam("hiddenname")String hiddenName,@RequestParam("password")String password,@RequestParam("firstOwner")String firstOwner) {
+		if(tableService.insertIntoUserSharedTablesTable(tableName,name,hiddenName,password,firstOwner)) return "Object added successfully";
+		else return "Error occured !";
+	}
+	@RequestMapping(value = "/deleteFromUserSharedTablesTable", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteFromUserSharedTablesTable(@RequestParam("tablename") String tableName,@RequestParam("hiddenname") String hiddenName) {
+		if(tableService.deleteFromUserSharedTablesTable(tableName, hiddenName)) return "Object deleted successfully";
+		else return "Error occured !";
 	}
 	
 }
