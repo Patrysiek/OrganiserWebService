@@ -54,6 +54,13 @@ public class TableController {
 		
 		return stringWriter.toString();
 	}
+	
+	@RequestMapping(value="/deleteTableFromAllSharedTables",method=RequestMethod.POST)
+	@ResponseBody
+	public boolean deleteTableFromAllSharedTables(@RequestParam("hiddenName")String hiddenName) throws IOException{
+		return  tableService.deleteTableFromAllSharedTables(hiddenName);
+	}
+	
 	@RequestMapping(value="/particularSharedTables",method=RequestMethod.POST)
 	@ResponseBody
 	public String particularSharedTables(@RequestParam("hiddenname")String hiddenName,@RequestParam("password")String password) throws JsonGenerationException, JsonMappingException, IOException{
@@ -63,14 +70,7 @@ public class TableController {
 		
 		return stringWriter.toString();
 	}
-	
-	@RequestMapping(value="/deleteSharedTable",method=RequestMethod.POST)
-	@ResponseBody
-	public boolean getTask(@RequestParam("tablename")String hiddenName) throws JsonGenerationException, JsonMappingException, IOException{
-		
-		return tableService.dropSharedTable(hiddenName);
-	}
-	
+
 	@RequestMapping(value="/newTableToSharedTables",method=RequestMethod.POST)
 	@ResponseBody
 	public void addNewTableToAllSharedTablesAndToFirstOwnerTable( @RequestParam("tablename")String tableName,@RequestParam("password")String password,@RequestParam("firstOwner")String firstOwner, @RequestParam("firstOwnerTablename")String firstOwnerTableName){
@@ -84,11 +84,11 @@ public class TableController {
 		else return "Error occured !";
 	}
 
-	@RequestMapping(value = "/dropusertable", method = RequestMethod.POST)
+	@RequestMapping(value = "/dropTable", method = RequestMethod.POST)
 	@ResponseBody
-	public String dropUserTable(@RequestParam("tablename") String tableName) {
+	public String dropTable(@RequestParam("tablename") String tableName) {
 
-		if(!tableService.dropUserTable(tableName)) return "Table dropped successfully";
+		if(!tableService.dropTable(tableName)) return "Table dropped successfully";
 		else return "Error occured !";
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,8 +107,14 @@ public class TableController {
 	@RequestMapping(value = "/deleteFromUserSharedTablesTable", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteFromUserSharedTablesTable(@RequestParam("tablename") String tableName,@RequestParam("hiddenname") String hiddenName) {
+		try {
 		if(tableService.deleteFromUserSharedTablesTable(tableName, hiddenName)) return "Object deleted successfully";
 		else return "Error occured !";
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return "Error occured !";
+		}
 	}
 	
 }

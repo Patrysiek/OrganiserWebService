@@ -71,15 +71,14 @@ public class TableDAO {
 		String sql = "CREATE TABLE IF NOT EXISTS "+hiddenName+"(ID int primary key NOT NULL  auto_increment,Date date,description varchar(40),status varchar(10))";
 		return jdbcTemplate.update(sql) == 1;
 	}
-
-	public boolean dropSharedTable(String hiddenName) {
-		String sql = "drop table " + hiddenName;
+	public boolean deleteTableFromAllSharedTables(String hiddenName) {
+		try {
+		String sql = "DELETE FROM all_shared_tables WHERE hiddenName = '" + hiddenName+"'";
 		return jdbcTemplate.update(sql) == 1;
-	}
-
-	public boolean deleteFromAllSharedTables(String hiddenName) {
-		String sql = "DELETE FROM all_shared_tables WHERE hiddenName = " + hiddenName;
-		return jdbcTemplate.update(sql) == 1;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	public boolean createUserTable(String tableName) {
 		try {
@@ -104,9 +103,10 @@ public class TableDAO {
 	}
 	public boolean deleteFromUserSharedTablesTable(String tableName,String hiddenName) {
 		try {
-			String sql = "DELETE FROM "+tableName+"WHERE hiddenName = "+hiddenName;
+			String sql = "DELETE FROM "+tableName+" WHERE hiddenName = '"+hiddenName+"'";
 			jdbcTemplate.update(sql);
 		}catch(Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 		return true;
@@ -121,10 +121,15 @@ public class TableDAO {
 		return true;
 	}
 	
-	public boolean dropUserTable(String tableName) {
+	public boolean dropTable(String tableName) {
 		String sql = "drop table "+tableName;
 		
+		try {
 		return jdbcTemplate.update(sql)==1;
+		}catch(Exception ex){
+			ex.printStackTrace();
+			return false;
+		}
 	}
 	
 
