@@ -23,9 +23,10 @@ public class UserDAO {
 		try {
 		return jdbcTemplate.query("SELECT * FROM users", new UserRowMapper());
 		}catch (Exception e) {
-			System.out.println("Brak wynikow");
+			e.printStackTrace();
+			return null;
 		}
-		return null;
+		
 	}
 	
 	public User getOneUser(String login) {
@@ -33,29 +34,32 @@ public class UserDAO {
 		try {
 		return jdbcTemplate.queryForObject(sql,new  UserRowMapper(),login);
 		}catch(Exception e) {
-			System.out.println("Nie udane zapytanie");
+			e.printStackTrace();
+			return null;
 		}
-		return null;
+		
 	}
 	public User login(String login, String password) {
 		String sql = "SELECT * FROM users WHERE login = ? AND password = ?";
 		User user = null;
 		try {
 		user = (User) jdbcTemplate.queryForObject(sql, new UserRowMapper(),login,password);
+		return user;
 		}catch(EmptyResultDataAccessException ex) {
+			ex.printStackTrace();
 			return null;
 		}
-		return user;
+		
 	}
 	public boolean createUser(String login,String name,String password) {
 		try {
 			String sql = "INSERT INTO users(login,name,password) VALUES( ?,?,?)";
 			jdbcTemplate.update(sql, login,name,password);
-			
+			return true;
 		}catch(Exception ex) {
+			ex.printStackTrace();
 			return false;
 		}
-		return true;
 	}
 	
 	public boolean deleteUser(String login) {
